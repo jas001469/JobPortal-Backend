@@ -4,12 +4,14 @@ exports.register = async (req, res) => {
   try {
     const data = await registerUser(req.body);
     
-    // Set HTTP-only cookie
+    // Set HTTP-only cookie - UPDATED FOR CROSS-DOMAIN
     res.cookie("auth_token", data.token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: true, // MUST be true for production (HTTPS)
+      sameSite: "none", // CHANGED from "strict" to "none" for cross-domain
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      path: "/", // Explicitly set path
+      // domain: "jobportal-backend-3smi.onrender.com" // Optional
     });
 
     res.status(201).json({ 
@@ -32,12 +34,13 @@ exports.login = async (req, res) => {
   try {
     const data = await loginUser(req.body);
     
-    // Set HTTP-only cookie
+    // Set HTTP-only cookie - UPDATED FOR CROSS-DOMAIN
     res.cookie("auth_token", data.token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: true, // MUST be true for production (HTTPS)
+      sameSite: "none", // CHANGED from "strict" to "none" for cross-domain
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      path: "/",
     });
 
     res.status(200).json({ 
@@ -90,11 +93,12 @@ exports.getUserProfile = async (req, res) => {
 // New: Logout user
 exports.logout = async (req, res) => {
   try {
-    // Clear the cookie
+    // Clear the cookie - UPDATED
     res.clearCookie("auth_token", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: true,
+      sameSite: "none",
+      path: "/",
     });
 
     res.json({

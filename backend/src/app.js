@@ -18,7 +18,8 @@ const corsOptions = {
     "https://job-portal-frontend.vercel.app"
   ],
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
+  exposedHeaders: ['Set-Cookie']
 };
 
 app.use(cors(corsOptions));
