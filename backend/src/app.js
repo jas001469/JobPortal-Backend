@@ -10,13 +10,30 @@ const statsRoutes = require("./modules/stats/stats.routes");
 
 const app = express();
 
-// CORS configuration
+// CORS configuration with wildcard for Vercel
 const corsOptions = {
-  origin: [
-    "http://localhost:3000",
-    "https://job-portal-frontend-5o82xjbak-jas001469.vercel.app",
-    "https://job-portal-frontend.vercel.app"
-  ],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Allow localhost
+    if (origin.startsWith('http://localhost:')) {
+      return callback(null, true);
+    }
+    
+    // Allow ALL Vercel deployments
+    if (origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+    
+    // You can also add your production domain once you have one
+    // if (origin === 'https://yourdomain.com') {
+    //   return callback(null, true);
+    // }
+    
+    // Block other origins
+    return callback(new Error('Not allowed by CORS'));
+  },
   credentials: true,
   optionsSuccessStatus: 200,
   exposedHeaders: ['Set-Cookie']
