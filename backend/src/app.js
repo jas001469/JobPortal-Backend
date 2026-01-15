@@ -5,15 +5,23 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 const authRoutes = require("./modules/auth/auth.routes.js");
 const jobRoutes = require("./modules/jobs/job.routes.js");
-const candidateRoutes = require("./modules/candidate/candidate.routes.js"); // ADD THIS
+const candidateRoutes = require("./modules/candidate/candidate.routes.js");
 const statsRoutes = require("./modules/stats/stats.routes");
 
 const app = express();
 
-app.use(cors({
-  origin: "http://localhost:3000",
+// CORS configuration
+const corsOptions = {
+  origin: [
+    "http://localhost:3000",
+    "https://job-portal-frontend-5o82xjbak-jas001469.vercel.app",
+    "https://job-portal-frontend.vercel.app"
+  ],
   credentials: true,
-}));
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());
@@ -24,8 +32,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/jobs", jobRoutes);
-app.use("/api/candidate", candidateRoutes); // ADD THIS
-
+app.use("/api/candidate", candidateRoutes);
 app.use("/api/stats", statsRoutes);
 
 app.get("/api/health", (req, res) => {
