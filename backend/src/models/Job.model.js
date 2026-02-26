@@ -111,26 +111,31 @@ const jobSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    type: {
-  type: String,
-  enum: [
-    "Full-time", 
-    "Part-time", 
-    "Contract", 
-    "Internship", 
-    "Remote",
-    "Temporary",
-    "Consultant",
-    "Freelance",
-    "Deputation",
-    "Regular",
-    "Short-Term Contract",
-    "Long-Term Contract",
-    "Tenure",
-    "Others"
-  ],
-  default: "Full-time",
-},
+     type: {
+      type: String,
+      // Remove the enum or make it less restrictive
+      default: "Full-time",
+    },
+//     type: {
+//   type: String,
+//   enum: [
+//     "Full-time", 
+//     "Part-time", 
+//     "Contract", 
+//     "Internship", 
+//     "Remote",
+//     "Temporary",
+//     "Consultant",
+//     "Freelance",
+//     "Deputation",
+//     "Regular",
+//     "Short-Term Contract",
+//     "Long-Term Contract",
+//     "Tenure",
+//     "Others"
+//   ],
+//   default: "Full-time",
+// },
     category: {
       type: String,
       trim: true,
