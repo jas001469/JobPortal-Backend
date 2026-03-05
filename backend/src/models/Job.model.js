@@ -87,6 +87,136 @@
 // module.exports = mongoose.model("Job", jobSchema);
 
 
+// const mongoose = require("mongoose");
+
+// const jobSchema = new mongoose.Schema(
+//   {
+//     title: {
+//       type: String,
+//       required: true,
+//       trim: true,
+//     },
+//     company: {
+//       type: String,
+//       required: true,
+//       trim: true,
+//     },
+//     location: {
+//       type: String,
+//       required: true,
+//       trim: true,
+//     },
+//     salary: {
+//       type: String,
+//       required: true,
+//       trim: true,
+//     },
+//      type: {
+//       type: String,
+//       // Remove the enum or make it less restrictive
+//       default: "Full-time",
+//     },
+// //     type: {
+// //   type: String,
+// //   enum: [
+// //     "Full-time", 
+// //     "Part-time", 
+// //     "Contract", 
+// //     "Internship", 
+// //     "Remote",
+// //     "Temporary",
+// //     "Consultant",
+// //     "Freelance",
+// //     "Deputation",
+// //     "Regular",
+// //     "Short-Term Contract",
+// //     "Long-Term Contract",
+// //     "Tenure",
+// //     "Others"
+// //   ],
+// //   default: "Full-time",
+// // },
+//     category: {
+//       type: String,
+//       trim: true,
+//       default: "", // Changed from required
+//     },
+//     description: {
+//       type: String,
+//       default: "", // Changed from required
+//     },
+//     requirements: {
+//       type: [String],
+//       default: [],
+//     },
+//     skills: {
+//       type: [String],
+//       default: [],
+//     },
+//     experience: {
+//       type: String,
+//       required: true,
+//     },
+//     education: {
+//       type: String,
+//       required: true,
+//     },
+//     employer: {
+//       type: mongoose.Schema.Types.ObjectId,
+//       ref: "User",
+//       required: true,
+//     },
+//     status: {
+//       type: String,
+//       enum: ["Active", "Closed", "Draft"],
+//       default: "Active",
+//     },
+//     // New field: Job deadline
+//     deadline: {
+//       type: Date,
+//       default: null, // Optional field
+//     },
+//     // Additional links fields
+//     applicationLink: {
+//       type: String,
+//       trim: true,
+//       default: "",
+//     },
+//     companyWebsite: {
+//       type: String,
+//       trim: true,
+//       default: "",
+//     },
+//     jobReferenceLink: {
+//       type: String,
+//       trim: true,
+//       default: "",
+//     },
+//     applications: [
+//       {
+//         candidate: {
+//           type: mongoose.Schema.Types.ObjectId,
+//           ref: "User",
+//         },
+//         appliedAt: {
+//           type: Date,
+//           default: Date.now,
+//         },
+//         status: {
+//           type: String,
+//           enum: ["Pending", "Reviewed", "Accepted", "Rejected"],
+//           default: "Pending",
+//         },
+//         coverLetter: String,
+//       },
+//     ],
+//   },
+//   { timestamps: true }
+// );
+
+// module.exports = mongoose.model("Job", jobSchema);
+
+
 const mongoose = require("mongoose");
 
 const jobSchema = new mongoose.Schema(
@@ -111,39 +241,18 @@ const jobSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-     type: {
+    type: {
       type: String,
-      // Remove the enum or make it less restrictive
       default: "Full-time",
     },
-//     type: {
-//   type: String,
-//   enum: [
-//     "Full-time", 
-//     "Part-time", 
-//     "Contract", 
-//     "Internship", 
-//     "Remote",
-//     "Temporary",
-//     "Consultant",
-//     "Freelance",
-//     "Deputation",
-//     "Regular",
-//     "Short-Term Contract",
-//     "Long-Term Contract",
-//     "Tenure",
-//     "Others"
-//   ],
-//   default: "Full-time",
-// },
     category: {
       type: String,
       trim: true,
-      default: "", // Changed from required
+      default: "",
     },
     description: {
       type: String,
-      default: "", // Changed from required
+      default: "",
     },
     requirements: {
       type: [String],
@@ -171,12 +280,14 @@ const jobSchema = new mongoose.Schema(
       enum: ["Active", "Closed", "Draft"],
       default: "Active",
     },
-    // New field: Job deadline
+    isFeatured: {
+      type: Boolean,
+      default: false,
+    },
     deadline: {
       type: Date,
-      default: null, // Optional field
+      default: null,
     },
-    // Additional links fields
     applicationLink: {
       type: String,
       trim: true,
@@ -208,6 +319,10 @@ const jobSchema = new mongoose.Schema(
           default: "Pending",
         },
         coverLetter: String,
+        candidateName: String,
+        candidateEmail: String,
+        candidatePhone: String,
+        candidateResume: String,
       },
     ],
   },
