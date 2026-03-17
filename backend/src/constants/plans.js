@@ -9,7 +9,7 @@ const PLAN_PERKS = {
     hrFeatures: false
   },
   "Talent Pro": {
-    jobPostings: 5,
+    jobPostings: 40,
     featuredJobs: 5,
     jobDisplayDays: 30,
     emailSupport: true,
@@ -55,7 +55,7 @@ const PLANS = {
       discount: null,
       popular: true,
       features: [
-        { label: "5 job postings", enabled: true },
+        { label: "40 job postings", enabled: true },
         { label: "5 featured jobs", enabled: true },
         { label: "Job displayed for 30 days", enabled: true },
         { label: "Email support", enabled: true },
